@@ -29,9 +29,13 @@ export default function UserList() {
           value={state.search}
         />
       </div>
-      <div>
-        <h2 className="fs-3 py-5">User List</h2>
-        {state.users.length == 0 && <p className="bg-primary p-2 text-white fs-5">There is no users</p>}
+      <div className="list">
+        <h2 className="fs-3 py-4 title">User List</h2>
+        {state.users.length == 0 && (
+          <p className="bg-primary mt-3 p-2 text-white fs-5">
+            There is no users
+          </p>
+        )}
         {state.users.map((user) => (
           <User key={user.id} user={user} />
         ))}
