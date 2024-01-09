@@ -1,0 +1,15 @@
+.user {
+  cursor: pointer;
+  .name,
+  .family {
+    font-size: 17px;
+  }
+}
+
+.user:hover {
+  background-color: rgb(124, 183, 249);
+}
+.userSelected {
+  background-color: #e77f9e !important;
+  color: #fff !important;
+}
