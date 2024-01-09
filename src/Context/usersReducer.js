@@ -2,33 +2,42 @@ export function usersReducer(state, action) {
   const { type, payload } = action;
   switch (type) {
     case "addUserClicked":
-      return { ...state, isAddUserClicked: payload };
-    case "tableUser":
-      return { ...state, isShowTableUser: payload };
+      return {
+        ...state,
+        isAddUserClicked: payload,
+        showInfoUser: { status: false, id: null },
+        editUser: { status: false, id: null },
+      };
     case "addUserSubmit":
       return {
         ...state,
         users: payload,
         isAddUserClicked: false,
         editUser: { status: false, id: null },
+        search: "",
       };
     case "showInfoOfUser":
-      return { ...state, showInfoUser: payload };
+      return {
+        ...state,
+        showInfoUser: payload,
+        isAddUserClicked: true,
+        editUser: { status: false, id: null },
+      };
     case "deleteUser":
       return {
         ...state,
         users: payload,
+        isAddUserClicked: false,
         showInfoUser: { status: false, id: null },
       };
     case "editUser":
       return {
         ...state,
         editUser: payload,
-        showInfoUser: { status: false, id: null },
+        // showInfoUser: { status: false, id: null },
       };
-
-    case "falseEditUser":
-      return { ...state, editUser: payload };
+    case "search":
+      return { ...state, users: payload.users, search: payload.search };
   }
   throw new Error("Invalid action");
 }

@@ -2,15 +2,36 @@ import React from "react";
 import "./userList.scss";
 import { useUsersContext } from "../../Context/UsersContext";
 import User from "../User/User";
+import { getAllUsers } from "../../utils/storage";
 export default function UserList() {
-  const { state } = useUsersContext();
+  const { state, dispatch } = useUsersContext();
+  function searchHandler(searchValue) {
+    const users = getAllUsers();
+    const filteredUsers = users.filter(
+      (user) =>
+        user.firstname.toLowerCase().includes(searchValue) ||
+        user.lastname.toLowerCase().includes(searchValue)
+    );
+    dispatch({
+      type: "search",
+      payload: { users: filteredUsers, search: searchValue },
+    });
+  }
+  console.log(state.users.length);
   return (
     <div className="w-25 text-center py-4 userList">
       <div className="inputSearch">
-        <input type="text" placeholder="Search..." className="search" />
+        <input
+          type="text"
+          placeholder="Search..."
+          className="search"
+          onChange={(e) => searchHandler(e.target.value)}
+          value={state.search}
+        />
       </div>
       <div>
         <h2 className="fs-3 py-5">User List</h2>
+        {state.users.length == 0 && <p className="bg-primary p-2 text-white fs-5">There is no users</p>}
         {state.users.map((user) => (
           <User key={user.id} user={user} />
         ))}

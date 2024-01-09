@@ -6,7 +6,8 @@ import { addUsers, getAllUsers, updateUsers } from "../../utils/storage";
 import { useUsersContext } from "../../Context/UsersContext";
 export default function TableUser() {
   const { state, dispatch } = useUsersContext();
-  console.log(state.editUser.status);
+  console.log("edituser", state.editUser.status);
+  console.log("isaddclicked", state.isAddUserClicked);
   const listOfProvince = [
     "British Columbia",
     "Alberta",
@@ -21,10 +22,10 @@ export default function TableUser() {
   ];
   const users = getAllUsers();
 
-  const user = state.editUser.status
-    ? users.find((user) => user.id == state.editUser.id)
-    : "";
+  const user =
+    state.editUser.status && users.find((user) => user.id == state.editUser.id);
   console.log(user);
+  console.log("name:", state.editUser.status ? user.firstname : "");
   const { register, handleSubmit, watch, formState } = useForm({
     defaultValues: {
       name: state.editUser.status ? user.firstname : "",
@@ -69,7 +70,6 @@ export default function TableUser() {
     dispatch({ type: "addUserSubmit", payload: newUsers });
     toast.success("new user Added  successfully!");
   }
-
   return (
     <form className="table w-75 m-auto" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3 ">
@@ -122,11 +122,11 @@ export default function TableUser() {
               required: "You must enter a Phone number",
               minLength: {
                 value: 12,
-                message: "Phone number must be 12 number",
+                message: "It is short, Phone number must be 12 number",
               },
               maxLength: {
                 value: 12,
-                message: "Phone number must be 12 number",
+                message: "It is long, Phone number must be 12 number",
               },
             })}
           />

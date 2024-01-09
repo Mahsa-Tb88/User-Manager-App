@@ -5,9 +5,11 @@ export default function User({ user }) {
   const { state, dispatch } = useUsersContext();
   const userClass = [
     "d-flex justify-content-start align-items-center user mb-3 py-2",
+    state.showInfoUser.status && state.showInfoUser.id == user.id
+      ? "userSelected"
+      : "",
   ].join(" ");
   function selectUser(id) {
-    console.log(id, state.showInfoUser);
     dispatch({ type: "showInfoOfUser", payload: { status: true, id } });
   }
   return (

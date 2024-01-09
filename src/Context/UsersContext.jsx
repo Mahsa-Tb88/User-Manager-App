@@ -10,9 +10,9 @@ function UsersContextProvider({ children }) {
   const [state, dispatch] = useReducer(usersReducer, {
     users: initialUsers,
     isAddUserClicked: false,
-    isShowTableUser: false,
     showInfoUser: { status: false, id: null },
     editUser: { status: false, id: null },
+    search: "",
   });
 
   const context = { state, dispatch };

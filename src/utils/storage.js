@@ -1,4 +1,4 @@
-import { usersData } from "./data";
+// import { usersData } from "./data";
 
 function getAllUsers() {
   try {

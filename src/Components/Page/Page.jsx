@@ -12,8 +12,6 @@ export default function Page() {
       type: "addUserClicked",
       payload: state.isAddUserClicked ? false : true,
     });
-    dispatch({ type: "tableUser", payload: true });
-    dispatch({ type: "falseEditUser", payload: { status: false, id: null } });
   }
   return (
     <div className=" w-75 page p-4">
@@ -30,9 +28,9 @@ export default function Page() {
         <h2 className="fs-4">Home</h2>
       </header>
       <div className="text-center mt-5">
-        {state.isAddUserClicked ? (
+        {state.isAddUserClicked && !state.showInfoUser.status ? (
           <TableUser />
-        ) : state.showInfoUser.status ? (
+        ) : state.showInfoUser.status && !state.editUser.status ? (
           <UserInfo />
         ) : state.editUser.status ? (
           <TableUser />
